@@ -11,7 +11,7 @@ function initMap() {
         lng: -116.419389
     };
     map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 3,
+        zoom: 4,
         center: nevada,
         mapTypeControl: false
     });
@@ -28,7 +28,7 @@ function googleMapsError() {
     alert("An error occurred with Google Maps!");
 }
 
-/* Location Model */
+/* Location Marker */
 var LocationMarker = function(data) {
     var self = this;
 
@@ -39,16 +39,15 @@ var LocationMarker = function(data) {
 
     this.visible = ko.observable(true);
 
-    // Style the markers a bit. This will be our listing marker icon.
+    // location marker style
     var defaultIcon = makeMarkerIcon("DC143C");
-    // Create a "highlighted location" marker color for when the user
-    // mouses over the marker.
+    // highlight location marker with different color when hovered over
     var highlightedIcon = makeMarkerIcon("000000");
 
     var clientID = "BIDMVS0LHC4MHG1LMOW0ET20XWALXQHNCO5CCRR24OGSXYWE";
     var clientSecret = "UUUC0ZLOUYSLIGNJAKV4RMTGDFNWBMKV5IGHU1ZMEZPXS122";
 
-    // get JSON request of foursquare data
+    // get JSON request foursquare data
     var reqURL = "https://api.foursquare.com/v2/venues/search?ll=" + this.position.lat + "," + this.position.lng + "&client_id=" + clientID + "&client_secret=" + clientSecret + "&v=20160118" + "&query=" + this.title;
 
     $.getJSON(reqURL).done(function(data) {
@@ -59,7 +58,7 @@ var LocationMarker = function(data) {
         alert("OOPS, something's wrong with foursquare");
     });
 
-    // Create a marker per location, and put into markers array
+    // marker per location in array
     this.marker = new google.maps.Marker({
         position: this.position,
         title: this.title,
@@ -78,15 +77,14 @@ var LocationMarker = function(data) {
         }
     });
 
-    // Create an onclick even to open an indowindow at each marker
+    // create click to infoWindow
     this.marker.addListener("click", function() {
         populateInfoWindow(self.this, self.street, self.city, infoWindow);
         toggleBounce(this);
         map.panTo(this.getPosition());
     });
 
-    // Two event listeners - one for mouseover, one for mouseout,
-    // to change the colors back and forth.
+    // event listener mouseover and mouse out
     this.marker.addListener("mouseover", function() {
         this.setIcon(highlightedIcon);
     });
@@ -94,12 +92,12 @@ var LocationMarker = function(data) {
         this.setIcon(defaultIcon);
     });
 
-    // show item info when selected from list
+    // showItem selected from list
     this.show = function(location) {
         google.maps.event.trigger(self.marker, "click");
     };
 
-    // creates bounce effect when item selected
+    // selected creates bounce
     this.bounce = function(place) {
         google.maps.event.trigger(self.marker, "click");
     };
@@ -114,7 +112,7 @@ var ViewModel = function() {
 
     this.mapList = ko.observableArray([]);
 
-    // add location markers for each location
+    // added location markers for each location
     locations.forEach(function(location) {
         self.mapList.push( new LocationMarker(location) );
     });
@@ -141,13 +139,13 @@ var ViewModel = function() {
 // one infowindow which will open at the marker that is clicked, and populate based
 // on that markers position.
 function populateInfoWindow(marker, street, city, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
+    // check if infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
-        // Clear the infowindow content to give the streetview time to load.
+        // clear the infowindow content to give the streetview time to load.
         infowindow.setContent("");
         infowindow.marker = marker;
 
-        // Make sure the marker property is cleared if the infowindow is closed.
+        // make sure the marker property is cleared if the infowindow is closed.
         infowindow.addListener("closeclick", function() {
             infowindow.marker = null;
         });
@@ -157,7 +155,7 @@ function populateInfoWindow(marker, street, city, infowindow) {
         var windowContent = "<h4>" + marker.title + "</h4>" +
             "<p>" + street + "<br>" + city + "<br>" + "</p>";
 
-        // In case the status is OK, which means the pano was found, compute the
+        // in case the status is OK, which means the pano was found, compute the
         // position of the streetview image, then calculate the heading, then get a
         // panorama from that and set the options
         var getStreetView = function (data, status) {
@@ -179,10 +177,10 @@ function populateInfoWindow(marker, street, city, infowindow) {
                 infowindow.setContent(windowContent + "<div style='color: red'>Address-less crime</div>");
             }
         };
-        // Use streetview service to get the closest streetview image within
+        // use streetview service to get closest streetview image within
         // 50 meters of the markers position
         streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
-        // Open the infowindow on the correct marker.
+        // open the infowindow on the correct marker
         infowindow.open(map, marker);
     }
 }
@@ -198,9 +196,8 @@ function toggleBounce(marker) {
   }
 }
 
-// This function takes in a COLOR, and then creates a new marker
-// icon of that color. The icon will be 21 px wide by 34 high, have an origin
-// of 0, 0 and be anchored at 10, 34).
+// this function takes in a COLOR, creates a new marker and creates a new
+//21 px wide by 34 high icon, anchored at 10, 34
 function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
         "http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|" + markerColor +
