@@ -1,3 +1,24 @@
+//function (response)
+//https://w.trhou.se/gad3gjk999
+//his example
+/*$(document).ready(function () {
+  var url = "../data/employees.json";
+  $.getJSON(url, function (repsonse) {
+    var statusHTML = '<ul class = "bulleted">';
+    $.each(response, function (index, employee) {
+      if (employee.inoffice === true) {
+        statusHTML +='<li class="in">';
+      } else {
+        statusHTML+='<li class="out">';
+      }
+        statusHTML += employee.name + '</li>';
+    }); //end $.each
+    
+    statusHTML += '</ul>';
+    $('#employeeList').html(statusHTML);
+  }); //end getJSON
+}); //end ready */
+
 // declaring global variables
 var map;
 var infoWindow;

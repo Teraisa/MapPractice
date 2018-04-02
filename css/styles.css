@@ -1,5 +1,5 @@
-body {
-    font-family: "Oswald", sans-serif;
+.css-selector {
+  font-family: 'Oswald', sans-serif;
 }
 
 .navbar {
@@ -40,8 +40,8 @@ body {
 }
 
 #pano {
-    width: 98%;
-    height: 98%;
+    width: 185px;
+    height: 185px;
 }
 
 .list-group-item:focus {

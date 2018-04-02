@@ -9,10 +9,10 @@ var locations = [
         }
     },
     {
-        title: "Sadie Natasha Jennings",
+        title: "Sadie",
         location: {
-            lat: 39.163798,
-            lng: -119.767403
+            lat: 39.475281,
+            lng: -119.812791
         }
     },
     {
@@ -30,17 +30,17 @@ var locations = [
         }
     },
     {
-        title: "Charles and Nona Rauer",
+        title: "Charles Nona",
         location: {
-            lat: 39.249683,
-            lng: -119.952685
+            lat: 39.547192,
+            lng: -119.752429
         }
     },
     {
-        title: "Albert and Joan Musalo",
+        title: "Albert and Joan",
         location: {
-            lat: 39.347074,
-            lng: -119.848814
+            lat: 36.114479,
+            lng: -115.164013
         }
     }
 ];
