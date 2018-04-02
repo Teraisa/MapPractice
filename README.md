@@ -6,7 +6,7 @@ _by Teraisa J. Rogers_ with Udacity
 With the help of Knockout JS, Google Maps API, Foursquare API, jQUERY, Bootstrap, Javascript, CSS, and HTML, we've compiled a list of five assorted true crimes along with their location.
 
 ### Before you begin (AKA Special Needs and Requirements)
-1. [Clone or download pro5map](https://github.com/Teraisa/pro5map)
+1. [Clone or download MapPractice](https://github.com/Teraisa/MapPractice)
 
 ### What Now?
 Open `index.html` in your browser, the map will load automatically. Feel free to explore.
